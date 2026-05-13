@@ -1,4 +1,4 @@
-# ⚓ Battleships
+# ⚓ Battleship
 
 A console-based Battleships game for Windows written in C++, featuring a smart AI opponent with hunt/target logic.
 
@@ -118,6 +118,10 @@ The enemy AI operates in two modes:
 - **Target mode** — activates on a hit; probes adjacent cells to find ship orientation, then fires along the axis until the ship is sunk
 
 After sinking a ship, the AI resets to hunt mode.
+
+### Random Fleet Size
+
+The enemy's `set_ships` algorithm intentionally places a random number of ships each game. Each ship has a limited number of placement attempts — if a random position is invalid the ship may be skipped entirely. This means the enemy fleet size varies between matches, making each game feel different and adding an element of uncertainty to the battle.
 
 ---
 
