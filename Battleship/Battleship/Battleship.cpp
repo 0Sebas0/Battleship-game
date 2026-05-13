@@ -27,7 +27,7 @@ protected:
 	const int ship4x = 1;
 
 	// the array of ship type counts 
-	int ship_count[max_ship_l + 1] = { 0, ship1x, ship2x, ship3x, ship4x };
+	int ship_count[max_ship_l + 1] = { 0, ship1x, ship2x, ship3x, ship4x};
 	int totalships;
 
 	char** canvas;
@@ -61,6 +61,10 @@ public:
 
 		for (int i = 0; i < rows; i++) delete[] ships_layout[i];
 		delete[] ships_layout;
+	}
+
+	bool operator==(const int other) const {
+		return totalships == other;
 	}
 
 	void show(bool setup) const { // shows the canvas of the board
@@ -236,7 +240,7 @@ public:
 	bool shoot(enemy& e_board, bool& player_hits);
 
 	bool is_unshot(int x, int y) {
-		return !( HIT==canvas[x][y] || MISS == canvas[x][y]);
+		return !(HIT == canvas[x][y] || MISS == canvas[x][y]);
 	}
 };
 
@@ -291,13 +295,13 @@ public:
 		all_coordinates.clear();
 	}
 
-	// places enemy ships randomly, may place not all ships in certain cases
+	// places enemy ships randomly, randomly fails to place ships to make game more unique and interesting
 	void set_ships() {
 
 		// 1x ships placed
 		int count = ship_count[1];
 		for (int j = 0; j < count;j++) {
-			const int MAX_ATTEMPTS = rand()%2; // regulates the randomness of ships
+			const int MAX_ATTEMPTS = rand() % 2; // regulates the randomness of ships
 			for (int k = 0; k < MAX_ATTEMPTS; k++) {
 
 				int x = rand() % rows;
@@ -312,7 +316,7 @@ public:
 			}
 		}
 		// other ships placed
-		for (int len = 2; len < max_ship_l+1; len++) {
+		for (int len = 2; len < max_ship_l + 1; len++) {
 			int count = ship_count[len];
 			for (int j = 0; j < count;j++) {
 				const int MAX_ATTEMPTS = 1 + rand() % max_ship_l; // regulates the randomness of ships
@@ -348,7 +352,7 @@ public:
 
 	// HELPERS
 	bool is_valid_and_unshot(int x, int y, player& p_board) {
-		if (Input_correct(x, y) && p_board.is_unshot(x,y))
+		if (Input_correct(x, y) && p_board.is_unshot(x, y))
 			return true;
 		else return false;
 	}
@@ -567,6 +571,7 @@ bool player::shoot(enemy& e_board, bool& player_hits) {
 	a = toupper(a);
 	int x = (int)a - 65;
 	int y = b - 1;
+
 	if (e_board.Input_correct(x, y)) {
 		player_hits = e_board.mark(x, y);
 		return true;
@@ -579,7 +584,6 @@ bool player::shoot(enemy& e_board, bool& player_hits) {
 class display {
 public:
 	void show_play(const player& player_board, const enemy& enemy_board) {
-		enemy_board.show_layout();
 		cout << "RADAR" << endl;
 		cout << "Enemy fleet health: " << enemy_board.get_total() << endl;
 		enemy_board.show(false);
@@ -675,12 +679,12 @@ public:
 		while (true) {
 			UI.show_play(player_board, enemy_board);
 
-			if (enemy_board.get_total() == 0) {
+			if (enemy_board == 0) {
 				cout << "Enemy anihilated, good job!" << endl;
 				UI.main_menu();
 				break;
 			}
-			else if (player_board.get_total() == 0) {
+			else if (player_board == 0) {
 				cout << "Our fleet was overpowered..." << endl;
 				UI.main_menu();
 				break;
@@ -691,12 +695,14 @@ public:
 				if (player_board.shoot(enemy_board, player_hits)) {
 					if (player_hits) {
 						player_hits = false;
+						UI.clear();
 						continue;
 					}
 				}
 				else {
 					UI.clear();
 					UI.wrongInput_msg();
+					continue;
 				}
 			}
 			UI.clear();

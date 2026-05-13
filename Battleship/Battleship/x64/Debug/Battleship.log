@@ -1,4 +1,4 @@
 ﻿  Battleship.cpp
-C:\Users\zaidi\Desktop\Paskaitos\Kursinis\Battleship\Battleship\Battleship.cpp(264,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\zaidi\Desktop\Paskaitos\Kursinis\Battleship\Battleship\Battleship.cpp(636,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\zaidi\Desktop\Paskaitos\Kursinis\Battleship\Battleship\Battleship.cpp(268,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\zaidi\Desktop\Paskaitos\Kursinis\Battleship\Battleship\Battleship.cpp(640,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Battleship.vcxproj -> C:\Users\zaidi\Desktop\Paskaitos\Kursinis\Battleship\x64\Debug\Battleship.exe
