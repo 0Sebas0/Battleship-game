@@ -37,12 +37,12 @@ A console-based Battleships game for Windows written in C++, featuring a smart A
 
 **With g++ (MinGW):**
 ```bash
-g++ -std=c++11 -o battleships battleships.cpp
+g++ -std=c++11 -o Battleship Battleship.cpp
 ```
 
 **With MSVC:**
 ```bash
-cl /EHsc battleships.cpp
+cl /EHsc Battleship.cpp
 ```
 
 ---
